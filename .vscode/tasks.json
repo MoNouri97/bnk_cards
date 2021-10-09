@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "npm: watch:ts",
+      "type": "npm",
+      "script": "watch:ts",
+      "isBackground": true,
+      "problemMatcher": [],
+      "detail": "tsc -w"
+    },
+    {
+      "type": "npm",
+      "script": "dev",
+      "isBackground": true,
+      "problemMatcher": [],
+      "label": "npm: dev",
+      "detail": "nodemon dist/index.js"
+    },
+    {
+      "dependsOn": ["npm: dev", "npm: watch:ts"],
+      "dependsOrder": "parallel",
+      "problemMatcher": [],
+      "label": "node dev",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}
