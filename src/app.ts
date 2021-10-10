@@ -1,10 +1,14 @@
+import passportConfig from 'config/passport';
 import cors from 'cors';
+import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import api from 'routes';
 import middlewares from './middlewares';
 
-require('dotenv').config();
+dotenv.config();
+passportConfig();
 // require('./auth/passport');
 
 const app = express();
@@ -19,11 +23,11 @@ app.use(express.json());
 
 app.get('/', (_req, res) => {
   res.json({
-    message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄',
+    message: '👋🌎🌍🌏✨',
   });
 });
 
-// app.use('/api/v1', api);
+app.use('/api/v1', api);
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);

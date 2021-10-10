@@ -6,11 +6,12 @@ const notFound: RequestHandler = (req, res, next) => {
   next(error);
 };
 
+// eslint-disable-next-line no-unused-vars
 const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
-  const statusCode = res.statusCode !== 200 ? res.statusCode : 500;
-  res.status(statusCode);
-  res.json({
+  const statusCode = err.code ?? res.statusCode !== 200 ? res.statusCode : 500;
+  res.status(statusCode).json({
     message: err.message,
+    error: true,
     stack: process.env.NODE_ENV === 'production' ? '🥞' : err.stack,
   });
 };

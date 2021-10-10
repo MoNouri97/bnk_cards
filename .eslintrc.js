@@ -24,5 +24,7 @@ module.exports = {
     'import/extensions': 0,
     'arrow-parens': 0,
     'no-console': 0,
+    'no-undef': 0,
+    'max-classes-per-file': 0,
   },
 };

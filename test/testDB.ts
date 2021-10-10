@@ -1,15 +1,16 @@
-module.exports = {
+export default {
+  dropSchema: true,
   type: 'postgres',
   host: 'localhost',
   port: 5432,
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
+  database: `${process.env.DB_NAME}_test`,
   synchronize: true,
-  logging: process.env.NODE_ENV === 'development',
-  entities: ['src/entity/**/*.ts', 'dist/entity/**/*.js'],
-  migrations: ['dist/migration/**/*.js'],
-  subscribers: ['dist/subscriber/**/*.js'],
+  logging: false,
+  entities: ['src/entity/**/*.ts'],
+  migrations: ['src/migration/**/*.ts'],
+  subscribers: ['src/subscriber/**/*.ts'],
   cli: {
     entitiesDir: 'src/entity',
     migrationsDir: 'src/migration',
