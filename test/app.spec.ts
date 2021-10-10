@@ -1,7 +1,7 @@
 import request from 'supertest';
 import app from '../src/app';
 
-describe('app', () => {
+describe('Non Existing Route', () => {
   it('responds with a not found message', done => {
     request(app)
       .get('/what-is-this-even')

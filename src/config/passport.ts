@@ -1,9 +1,9 @@
 import User from 'entity/User';
-import passport from 'passport';
+import { PassportStatic } from 'passport';
 import { ExtractJwt, Strategy as StrategyJwt } from 'passport-jwt';
 import { getRepository } from 'typeorm';
 
-const passportConfig = () => {
+const passportConfig = (passport: PassportStatic) => {
   passport.use(
     new StrategyJwt(
       {
@@ -13,7 +13,9 @@ const passportConfig = () => {
       async (jwtPayload, done) => {
         const UserRepo = getRepository(User);
         try {
-          const user = await UserRepo.findOne({ where: { id: jwtPayload.id } });
+          const user = await UserRepo.findOneOrFail({
+            where: { id: jwtPayload.id },
+          });
           return done(null, user);
         } catch (err) {
           return done(err);

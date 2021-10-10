@@ -4,12 +4,12 @@ import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import passport from 'passport';
 import api from 'routes';
 import middlewares from './middlewares';
 
 dotenv.config();
-passportConfig();
-// require('./auth/passport');
+passportConfig(passport);
 
 const app = express();
 
@@ -26,6 +26,16 @@ app.get('/', (_req, res) => {
     message: '👋🌎🌍🌏✨',
   });
 });
+// testing jwt protection
+app.get(
+  '/protected',
+  passport.authenticate('jwt', { session: false }),
+  (_req, res) => {
+    res.json({
+      message: '🔓🔓🔓✨',
+    });
+  },
+);
 
 app.use('/api/v1', api);
 
