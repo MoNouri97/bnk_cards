@@ -41,11 +41,11 @@ describe('Login', () => {
 
 describe('Protected Route', () => {
   it('responds with an error', done => {
-    request(app).get('/protected').expect(401, done);
+    request(app).get('/me').expect(401, done);
   });
   it('responds with a json message', done => {
     request(app)
-      .get('/protected')
+      .get('/me')
       .set('Authorization', `bearer ${token}`)
       .expect(200, done);
   });

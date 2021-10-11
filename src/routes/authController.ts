@@ -1,9 +1,9 @@
 import express from 'express';
 import { login, register } from 'services/auth';
 
-const authRouter = express.Router();
+const authController = express.Router();
 
-authRouter.post('/login', async (req, res, next) => {
+authController.post('/login', async (req, res, next) => {
   const { email, password } = req.body;
   try {
     res.json(await login(email, password));
@@ -11,7 +11,7 @@ authRouter.post('/login', async (req, res, next) => {
     next(error);
   }
 });
-authRouter.post('/register', async (req, res, next) => {
+authController.post('/register', async (req, res, next) => {
   const { email, password, fullName } = req.body;
   try {
     res.status(201).json(await register({ email, password, fullName }));
@@ -20,4 +20,4 @@ authRouter.post('/register', async (req, res, next) => {
   }
 });
 
-export default authRouter;
+export default authController;

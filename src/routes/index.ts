@@ -1,8 +1,8 @@
 import express from 'express';
-import authRouter from 'routes/authRouter';
+import authController from 'routes/authController';
 
 const api = express.Router();
 
-api.use(authRouter);
+api.use(authController);
 
 export default api;

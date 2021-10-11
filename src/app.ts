@@ -13,12 +13,10 @@ passportConfig(passport);
 
 const app = express();
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.get('/', (_req, res) => {
@@ -27,15 +25,12 @@ app.get('/', (_req, res) => {
   });
 });
 // testing jwt protection
-app.get(
-  '/protected',
-  passport.authenticate('jwt', { session: false }),
-  (_req, res) => {
-    res.json({
-      message: '🔓🔓🔓✨',
-    });
-  },
-);
+app.get('/me', passport.authenticate('jwt', { session: false }), (req, res) => {
+  res.json({
+    message: '🔓🔓🔓✨',
+    user: req.user,
+  });
+});
 
 app.use('/api/v1', api);
 
