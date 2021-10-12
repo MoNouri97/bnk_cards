@@ -8,7 +8,6 @@
     "outDir": "./dist",
     "moduleResolution": "node",
     "removeComments": true,
-    "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "noImplicitThis": true,
@@ -25,5 +24,5 @@
   },
   "exclude": ["node_modules"],
   "include": ["./src/**/*.ts"],
-  "files": ["types.d.ts"]
+  "files": ["./types.d.ts"]
 }

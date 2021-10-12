@@ -9,7 +9,7 @@ const getAllByUserId = async (userId: string) => {
 const createCard = async (userId: string, primaryAccountNumber: string) => {
   // TODO: call to vis/mastercard for card info
   const card = await Card.create({
-    number: '1234567890123',
+    number: '6759-1685-5194-1401',
     primaryAccountNumber,
     user: { id: userId },
   }).save();
