@@ -1,5 +1,8 @@
-import { IsEmail, MinLength } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import Card from 'entity/Card';
+import {
+    BaseEntity, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn,
+    UpdateDateColumn
+} from 'typeorm';
 
 @Entity()
 export default class User extends BaseEntity {
@@ -7,14 +10,20 @@ export default class User extends BaseEntity {
   id: string;
 
   @Column()
-  @MinLength(2)
   fullName: string;
 
   @Column()
-  @MinLength(6)
   password: string;
 
   @Column({ unique: true })
-  @IsEmail()
   email: string;
+
+  @OneToMany(() => Card, card => card.user)
+  cards: Card[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

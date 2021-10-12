@@ -48,11 +48,4 @@ class DbEntryNotFound extends Error {
     this.code = 404;
   }
 }
-export {
-  ValidationError,
-  MissingParameter,
-  UnknownError,
-  InvalidToken,
-  DbEntryAlreadyExists,
-  DbEntryNotFound,
-};
+export { ValidationError, MissingParameter, UnknownError, InvalidToken, DbEntryAlreadyExists, DbEntryNotFound };

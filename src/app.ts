@@ -3,10 +3,10 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
+import { errorHandler, notFound } from 'middlewares';
 import morgan from 'morgan';
 import passport from 'passport';
 import api from 'routes';
-import middlewares from './middlewares';
 
 dotenv.config();
 passportConfig(passport);
@@ -34,7 +34,7 @@ app.get('/me', passport.authenticate('jwt', { session: false }), (req, res) => {
 
 app.use('/api/v1', api);
 
-app.use(middlewares.notFound);
-app.use(middlewares.errorHandler);
+app.use(notFound);
+app.use(errorHandler);
 
 export default app;

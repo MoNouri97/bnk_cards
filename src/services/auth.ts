@@ -1,8 +1,7 @@
 import { compare, hash } from 'bcrypt';
-import { validateOrReject } from 'class-validator';
 import User from 'entity/User';
 import { WrongCredentials } from 'errors/auth';
-import { DbEntryAlreadyExists, UnknownError, ValidationError } from 'errors/general';
+import { DbEntryAlreadyExists, UnknownError } from 'errors/general';
 import jwt from 'jsonwebtoken';
 
 const login = async (email: string, password: string) => {
@@ -27,12 +26,6 @@ const login = async (email: string, password: string) => {
 
 const register = async ({ fullName, email, password }: Partial<User>) => {
   const user = User.create({ fullName, email, password });
-  try {
-    await validateOrReject(user, { stopAtFirstError: true });
-  } catch (error) {
-    throw new ValidationError(Object.values(error[0].constraints)[0] as string);
-  }
-
   const alreadyExistsUser = await User.findOne({ where: { email } });
 
   if (alreadyExistsUser) {
