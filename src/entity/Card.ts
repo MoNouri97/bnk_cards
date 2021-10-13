@@ -15,6 +15,12 @@ export default class Card extends BaseEntity {
   @Column()
   primaryAccountNumber!: string;
 
+  @Column()
+  type!: string;
+
+  @Column()
+  expirationDate!: Date;
+
   @ManyToOne(() => User, user => user.cards)
   user!: User;
 

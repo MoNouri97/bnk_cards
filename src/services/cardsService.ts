@@ -1,16 +1,19 @@
 import Card from 'entity/Card';
 import { DbEntryNotFound } from 'errors/general';
+import { createMasterCardData, createVisaData } from 'services/mockService';
 
 const getAllByUserId = async (userId: string) => {
   const data = await Card.find({ user: { id: userId } });
   return { cards: data, count: data.length };
 };
 
-const createCard = async (userId: string, primaryAccountNumber: string) => {
-  // TODO: call to vis/mastercard for card info
+const createCard = async (userId: string, primaryAccountNumber: string, type: 'mastercard' | 'visa') => {
+  const data =
+    type === 'mastercard' ? createMasterCardData(primaryAccountNumber) : createVisaData(primaryAccountNumber);
+
   const card = await Card.create({
-    number: '6759-1685-5194-1401',
-    primaryAccountNumber,
+    ...data,
+    type,
     user: { id: userId },
   }).save();
   return card;
