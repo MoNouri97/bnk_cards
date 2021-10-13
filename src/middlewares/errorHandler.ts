@@ -3,7 +3,6 @@ import { ErrorRequestHandler } from 'express';
 // eslint-disable-next-line no-unused-vars
 const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
   const statusCode = err.code ?? (res.statusCode !== 200 ? res.statusCode : 500);
-  console.log('code', statusCode);
   res.status(statusCode).json({
     message: err.message,
     error: true,

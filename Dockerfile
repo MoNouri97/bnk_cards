@@ -1,19 +1,23 @@
-FROM node:14-alpine
-ENV NODE_ENV=production
-WORKDIR /usr/src/app
-COPY package.json yarn.lock ./
-# RUN npm install --production --silent && npm install typescript -g && mv node_modules ../
-RUN yarn install --frozen-lockfile --silent
+# stage 1 building the code
+FROM node:14-alpine as builder
+WORKDIR /usr/app
+COPY package*.json ./
+RUN npm install
 COPY . .
-# COPY ./dist/. .
-ENV PORT=3000
+RUN npm run build
+
+# stage 2
+FROM node:14-alpine
+WORKDIR /usr/app
+COPY package*.json ./
+RUN npm install --production
+
+COPY --from=builder /usr/app/dist ./dist
+
+COPY ormconfig.docker.js ./ormconfig.js
+COPY .env .
 ENV NODE_PATH=./dist/.
-ENV DB_NAME=dejamobile
-ENV DB_USER=postgres
-ENV DB_PASS=postgres
-ENV JWT_SECRET=xxxxsecretxxxx
+
 EXPOSE 3000
-RUN chown -R node /usr/src/app
-USER node
-RUN ls
-CMD ["node", "dist/index.js"]
+RUN cat ./ormconfig.js
+CMD node dist/index.js
