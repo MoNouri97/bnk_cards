@@ -1,4 +1,4 @@
-# Awesome Project Build with TypeORM
+## Simple Crud App using nodejs, typeorm, passportjs coded in typescript
 
 Steps to run this project:
 
